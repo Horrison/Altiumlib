@@ -1,0 +1,513 @@
+#!/usr/bin/env python3
+# AltiumLibInsrt.py, By Alex Hickerson, 2018-04-19
+#PyQt5, Python 3.6.5
+# This Program will insert information into Microsoft Excel via User Interface for use in Altium Libraries"""
+
+
+import sys
+import os
+import xlrd
+from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QDesktopWidget, QMainWindow, QAction, qApp, QStatusBar, QMessageBox, QTextEdit, QLineEdit, QLabel, QCheckBox
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QIcon
+from pathlib import Path
+
+class loadWindow(QMainWindow):
+    def __init__(self, parent=None):
+        super(loadWindow,self).__init__()
+        self.title="Database Selector"
+        self.setWindowTitle(self.title)
+        self.resize(500,200)
+        self.center
+        self.setWindowIcon(QIcon('logo_conceptos'))
+
+        #load the last file path that was loaded
+        initSet= open('savedInfo.txt.txt','r')
+        fileName= initSet.readline()
+        initSet.close()
+
+          #firstmanufacturer
+        self.filebox= QLineEdit(self)
+        self.filebox.setText(fileName)
+        self.filebox.move(50,90)
+        self.filebox.resize(400,20)
+        self.fileLabel= QLabel(self)
+        self.fileLabel.resize(400,20)
+        self.fileLabel.setText('Enter the file directory:')
+        self.fileLabel.move(180,65)
+
+        #load button for the directory window
+        okbutton = QPushButton(' Load ', self)
+        okbutton.setToolTip('Load an existing Altium Database')
+        okbutton.resize(100,30)
+        okbutton.move(200,120)
+        okbutton.clicked.connect(self.on_okClick)
+
+
+    def center():
+       # find the center of the screen and move the window to it
+        qr= self.frameGeonmtry()
+        cp=QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def on_okClick(self):
+        # final load button *****************************MAJOR LOAD METHOD ***************************
+        fileDirect= self.filebox.text()
+        fileStrip= fileDirect.strip('"')
+        Libgui.fileStrip= fileStrip
+        
+        #open the excel workbook read row 1 and assign the strings to the edit boxes in Libgui
+        xlBase= xlrd.open_workbook(fileStrip)
+        workSpace= xlBase.sheet_by_index(0)
+        cellone =workSpace.cell_value(1,0)
+        Libgui.rowbox.setText('1')
+        
+        
+
+        # write the directory to a text file for next startup
+        
+        fileSave=open('savedInfo.txt.txt','w')
+        fileSave.write(fileDirect)
+        fileSave.close()
+        
+        self.hide()
+        #***********************************************************************************************
+
+   
+
+       
+class Manuwindow (QMainWindow) :
+    def __init__(self, parent=None):
+        super(Manuwindow, self).__init__()
+        self.title="Multiple Manufacturers Input"
+        self.setWindowTitle(self.title)
+        self.resize(500,350)
+        self.center
+        self.setWindowIcon(QIcon('logo_conceptos'))
+
+        #firstmanufacturer
+        self.manu2box=QLineEdit(self)
+        self.manu2box.move(20,20)
+        self.manu2box.resize(200,20)
+        self.manu2Label= QLabel(self)
+        self.manu2Label.setText('Manufacturer 2')
+        self.manu2Label.move(20,-5)
+     
+        #firstmanufacturing part number
+        self.manu2num=QLineEdit(self)
+        self.manu2num.move(20,60)
+        self.manu2num.resize(200,20)
+        self.manu2numLabel= QLabel(self)
+        self.manu2numLabel.setText('MFG Part Number 2')
+        self.manu2numLabel.move(20,35)
+
+        #manufacturer 3 box
+        self.manu3box=QLineEdit(self)
+        self.manu3box.move(20,100)
+        self.manu3box.resize(200,20)
+        self.manu3numLabel= QLabel(self)
+        self.manu3numLabel.setText('Manufacturer 3')
+        self.manu3numLabel.move(20,75)
+
+        #manufacturer 3 label
+        self.manu3box=QLineEdit(self)
+        self.manu3box.move(20,140)
+        self.manu3box.resize(200,20)
+        self.manu3numLabel= QLabel(self)
+        self.manu3numLabel.resize(200,30)
+        self.manu3numLabel.setText('MFG Part Number 3')
+        self.manu3numLabel.move(20,115)
+
+        #manufacturer 4 box
+        self.manu4box=QLineEdit(self)
+        self.manu4box.move(20,180)
+        self.manu4box.resize(200,20)
+        self.manu4numLabel= QLabel(self)
+        self.manu4numLabel.resize(200,30)
+        self.manu4numLabel.setText('Manufacturer 4')
+        self.manu4numLabel.move(20,155)
+
+        #manufacturer 4 label
+        self.manu4box=QLineEdit(self)
+        self.manu4box.move(20,220)
+        self.manu4box.resize(200,20)
+        self.manu4numLabel= QLabel(self)
+        self.manu4numLabel.resize(200,30)
+        self.manu4numLabel.setText('Manufacturing Part Number 4')
+        self.manu4numLabel.move(20,195)
+
+        #manufacturer 5 box
+        self.manu5box=QLineEdit(self)
+        self.manu5box.move(20,260)
+        self.manu5box.resize(200,20)
+        self.manu5numLabel= QLabel(self)
+        self.manu5numLabel.resize(200,30)
+        self.manu5numLabel.setText('Manufacturer 5')
+        self.manu5numLabel.move(20,235)
+
+        #manufacturer 5 label
+        self.manu5box=QLineEdit(self)
+        self.manu5box.move(20,300)
+        self.manu5box.resize(200,20)
+        self.manu5numLabel= QLabel(self)
+        self.manu5numLabel.resize(200,30)
+        self.manu5numLabel.setText('MFG Part Number 5')
+        self.manu5numLabel.move(20,275)
+
+         #manufacturer 6 box
+        self.manu6box=QLineEdit(self)
+        self.manu6box.move(250,20)
+        self.manu6box.resize(200,20)
+        self.manu6numLabel= QLabel(self)
+        self.manu6numLabel.resize(200,30)
+        self.manu6numLabel.setText('Manufacturer 6')
+        self.manu6numLabel.move(250,-5)
+
+        #manufacturer 6 label
+        self.manu6box=QLineEdit(self)
+        self.manu6box.move(250,60)
+        self.manu6box.resize(200,20)
+        self.manu6numLabel= QLabel(self)
+        self.manu6numLabel.resize(200,30)
+        self.manu6numLabel.setText('MFG Part Number 6')
+        self.manu6numLabel.move(250,35)
+
+         #manufacturer 7 box
+        self.manu7box=QLineEdit(self)
+        self.manu7box.move(250,100)
+        self.manu7box.resize(200,20)
+        self.manu7numLabel= QLabel(self)
+        self.manu7numLabel.resize(200,30)
+        self.manu7numLabel.setText('Manufacturer 7')
+        self.manu7numLabel.move(250,75)
+
+        #manufacturer 7 label
+        self.manu7box=QLineEdit(self)
+        self.manu7box.move(250,140)
+        self.manu7box.resize(200,20)
+        self.manu7numLabel= QLabel(self)
+        self.manu7numLabel.resize(200,30)
+        self.manu7numLabel.setText('MFG Part Number 7')
+        self.manu7numLabel.move(250,115)
+
+         #manufacturer 8 box
+        self.manu8box=QLineEdit(self)
+        self.manu8box.move(250,180)
+        self.manu8box.resize(200,20)
+        self.manu8numLabel= QLabel(self)
+        self.manu8numLabel.resize(200,30)
+        self.manu8numLabel.setText('Manufacturer 8')
+        self.manu8numLabel.move(250,155)
+
+        #manufacturer 8 label
+        self.manu8box=QLineEdit(self)
+        self.manu8box.move(250,220)
+        self.manu8box.resize(200,20)
+        self.manu8numLabel= QLabel(self)
+        self.manu8numLabel.resize(200,30)
+        self.manu8numLabel.setText('MFG Part Number 8')
+        self.manu8numLabel.move(250,195)
+
+    def center():
+        #find the center of the screen and move the window to it
+        qr= self.frameGeonmtry()
+        cp=QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+class Libgui(QMainWindow):
+
+    def __init__(self):
+        super(Libgui, self).__init__()
+        self.title = 'Altium Library Importer'
+        self.initUI()
+        self.n=0
+        self.x=0
+        self.setWindowIcon(QIcon('logo_conceptos'))
+        self.dialog= Manuwindow(self)
+        self.fileSelect= loadWindow(self)
+        fileStrip=""
+        
+        
+        #confirmation pop up for closing through the file-exit menu
+    def close_action(self):
+        choice = QMessageBox.question(self, 'Confirm','Are you sure you want to quit?', QMessageBox.Yes | QMessageBox.No)
+
+        if choice == QMessageBox.Yes :
+            sys.exit()
+        else:
+            pass
+
+    def on_createclick(self):
+        print(self.x)
+        self.x= self.x+1
+
+    def multiclick(self):
+        self.dialog.show()
+
+    def on_searchClick(self):
+        print('searching')
+
+    def center():
+        #find the center of the screen and move the window to it
+        qr= self.frameGeonmtry()
+        cp=QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def on_loadClick(self):
+        self.fileSelect.show()
+
+    def initUI(self):
+       #create our window
+        self.setWindowTitle(self.title)
+        self.resize(1000,700)
+        self.center
+
+        #create load button for excel
+        loadbutton = QPushButton(' Load Altium Database ', self)
+        loadbutton.setToolTip('Load an existing Altium Database')
+        loadbutton.resize(130,30)
+        loadbutton.move(350,20)
+        loadbutton.clicked.connect(self.on_loadClick)
+
+        #button to create new excel spreadsheet
+        createbutton = QPushButton(' Create New Database ', self)
+        createbutton.setToolTip('Create a new Altium Database')
+        createbutton.resize(130,30)
+        createbutton.move(495,20)
+        createbutton.clicked.connect(self.on_createclick)
+
+        #MFG part number search button
+        searchbutton = QPushButton(' Search ', self)
+        searchbutton.setToolTip(' Search For a Manufacturing Part Number ')
+        searchbutton.resize(75,20)
+        searchbutton.move(560,350)
+        searchbutton.clicked.connect(self.on_searchClick)
+
+        #creating menubar dropdowns
+        mainMenu = self.menuBar() 
+        fileMenu = mainMenu.addMenu('File')
+        editMenu = mainMenu.addMenu('Edit')
+        viewMenu = mainMenu.addMenu('View')
+        searchMenu = mainMenu.addMenu('Search')
+        toolsMenu = mainMenu.addMenu('Tools')
+        helpMenu = mainMenu.addMenu('Help')
+ 
+        #File-new
+        newf = QAction('New', self)
+        newf.setShortcut('Ctrl+N')
+        newf.setStatusTip('Exit application')
+        newf.triggered.connect(self.close_action)
+
+        #file-open
+        openf = QAction('Open', self)
+        openf.setShortcut('Ctrl+O')
+        openf.setStatusTip('Exit application')
+        openf.triggered.connect(self.close_action)
+
+        #file-exit
+        exitButton = QAction(QIcon('exit24.png'), 'Exit', self)
+        exitButton.setShortcut('Ctrl+Q')
+        exitButton.setStatusTip('Exit application')
+        exitButton.triggered.connect(self.close_action)
+
+        #file-save
+        savef = QAction('Save', self)
+        savef.setShortcut('Ctrl+S')
+        savef.setStatusTip('Exit application')
+        savef.triggered.connect(self.close_action)
+
+        #file-save as
+        saveAs = QAction('Save As', self)
+        saveAs.setShortcut('Ctrl+Shift+S')
+        saveAs.setStatusTip('Exit application')
+        saveAs.triggered.connect(self.close_action)
+
+        #file-open recent
+        openrecent = QAction('Open Recent', self)
+        openrecent.setShortcut('Ctrl+Shift+O')
+        openrecent.setStatusTip('Exit application')
+        openrecent.triggered.connect(self.close_action)
+
+        #add dropdown actions to file menu
+        fileMenu.addAction(newf)
+        fileMenu.addAction(openf)
+        fileMenu.addAction(exitButton)
+        fileMenu.addAction(savef)
+        fileMenu.addAction(saveAs)
+        fileMenu.addAction(openrecent)
+
+         #row box
+        self.rowbox=QLineEdit(self)
+        self.rowbox.move(100,32)
+        self.rowbox.resize(30,20)
+        self.rowLabel= QLabel(self)
+        self.rowLabel.setText('Row #')
+        self.rowLabel.move(100,10)
+
+        #part number textbox
+        self.partbox=QLineEdit(self)
+        self.partbox.move(350,350)
+        self.partbox.resize(200,20)
+        self.partLabel= QLabel(self)
+        self.partLabel.setText('MFG Part Number')
+        self.partLabel.move(350,328)
+     
+        #part type textbox
+        self.typebox=QLineEdit(self)
+        self.typebox.move(100,150)
+        self.typebox.resize(200,20)
+        self.typeLabel= QLabel(self)
+        self.typeLabel.setText('Part Type')
+        self.typeLabel.move(100,128)
+
+        #part Description textbox
+        self.descbox=QLineEdit(self)
+        self.descbox.move(350,100)
+        self.descbox.resize(200,20)
+        self.descLabel= QLabel(self)
+        self.descLabel.setText('Part Description')
+        self.descLabel.move(350,78)
+
+        #part company part number textbox
+        self.compartbox=QLineEdit(self)
+        self.compartbox.move(100,100)
+        self.compartbox.resize(200,20)
+        self.compartLabel= QLabel(self)
+        self.compartLabel.resize(200,30)
+        self.compartLabel.setText('Company Part Number')
+        self.compartLabel.move(100,78)
+
+        #package type
+        self.packagebox=QLineEdit(self)
+        self.packagebox.move(350,150)
+        self.packagebox.resize(200,20)
+        self.packageLabel= QLabel(self)
+        self.packageLabel.resize(200,30)
+        self.packageLabel.setText('Package Type')
+        self.packageLabel.move(350,128)
+
+        #SMT/PTH
+        self.smtbox=QCheckBox(self)
+        self.smtbox.move(100,200)
+        self.smtbox.resize(200,20)
+        self.smtLabel= QLabel(self)
+        self.smtLabel.resize(200,30)
+        self.smtLabel.setText('If part is Thru Hole, check the box below.')
+        self.smtLabel.move(100,178)
+
+        #Watts
+        self.wattsbox=QLineEdit(self)
+        self.wattsbox.move(350,200)
+        self.wattsbox.resize(200,20)
+        self.wattsLabel= QLabel(self)
+        self.wattsLabel.resize(200,30)
+        self.wattsLabel.setText('Watts')
+        self.wattsLabel.move(350,178)
+
+        #tolerance
+        self.tolebox=QLineEdit(self)
+        self.tolebox.move(100,250)
+        self.tolebox.resize(200,20)
+        self.toleLabel= QLabel(self)
+        self.toleLabel.resize(200,30)
+        self.toleLabel.setText('Tolerance')
+        self.toleLabel.move(100,228)
+
+        #WRK Voltage
+        self.voltbox=QLineEdit(self)
+        self.voltbox.move(350,250)
+        self.voltbox.resize(200,20)
+        self.voltLabel= QLabel(self)
+        self.voltLabel.resize(200,30)
+        self.voltLabel.setText('WRK Voltage')
+        self.voltLabel.move(350,228)
+
+        #Operating temperature
+        self.tempbox=QLineEdit(self)
+        self.tempbox.move(100,300)
+        self.tempbox.resize(200,20)
+        self.tempLabel= QLabel(self)
+        self.tempLabel.resize(200,30)
+        self.tempLabel.setText('Operating Temperature')
+        self.tempLabel.move(100,278)
+
+        #Library path
+        self.libpathbox=QLineEdit(self)
+        self.libpathbox.move(100,550)
+        self.libpathbox.resize(200,20)
+        self.libpathLabel= QLabel(self)
+        self.libpathLabel.resize(200,30)
+        self.libpathLabel.setText('Lib Path')
+        self.libpathLabel.move(100,528)
+        
+        #Library Ref
+        self.librefbox=QLineEdit(self)
+        self.librefbox.move(100,350)
+        self.librefbox.resize(200,20)
+        self.librefLabel= QLabel(self)
+        self.librefLabel.resize(200,30)
+        self.librefLabel.setText('Library Reference')
+        self.librefLabel.move(100,328)
+
+        #Footprint Path
+        self.footbox=QLineEdit(self)
+        self.footbox.move(100,600)
+        self.footbox.resize(200,20)
+        self.footLabel= QLabel(self)
+        self.footLabel.resize(200,30)
+        self.footLabel.setText('Footprint Path')
+        self.footLabel.move(100,578)
+
+        #Footprint Ref
+        self.footrefbox=QLineEdit(self)
+        self.footrefbox.move(100,400)
+        self.footrefbox.resize(200,20)
+        self.footrefLabel= QLabel(self)
+        self.footrefLabel.resize(200,30)
+        self.footrefLabel.setText('Footprint Ref')
+        self.footrefLabel.move(100,378)
+        
+        #componentLinkURL
+        self.urlbox=QLineEdit(self)
+        self.urlbox.move(100,500)
+        self.urlbox.resize(200,20)
+        self.urlLabel= QLabel(self)
+        self.urlLabel.resize(200,30)
+        self.urlLabel.setText('URL Link')
+        self.urlLabel.move(100,478)
+        
+        #Componentlinkdescription
+        self.linkdbox=QLineEdit(self)
+        self.linkdbox.move(100,450)
+        self.linkdbox.resize(200,20)
+        self.linkdLabel= QLabel(self)
+        self.linkdLabel.resize(200,30)
+        self.linkdLabel.setText('Link Description')
+        self.linkdLabel.move(100,428)
+
+        #Manufacturer
+        self.manuonebox=QLineEdit(self)
+        self.manuonebox.move(350,300)
+        self.manuonebox.resize(200,20)
+        self.manuoneLabel= QLabel(self)
+        self.manuoneLabel.resize(200,30)
+        self.manuoneLabel.setText('Manufacturer')
+        self.manuoneLabel.move(350,278)
+
+        #this button will bring you to a table to put in multiple manufacturers, up to 7 additional
+        self.mfgsbox = QPushButton('Multiple Manufacturers', self)
+        self.mfgsbox.setToolTip('Click to add up to 7 additional manufacturers')
+        self.mfgsbox.clicked.connect(self.multiclick)
+        self.mfgsbox.move(350,400)
+        self.mfgsbox.resize(200,40)
+
+        self.show()
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    ex = Libgui()
+    sys.exit(app.exec_())
